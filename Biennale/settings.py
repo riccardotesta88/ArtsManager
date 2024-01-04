@@ -26,7 +26,7 @@ SECRET_KEY = 'd8m+37h8q_6!1$6a(cc-*fz*j71=@n5hvs5$rp%7%w27yxa)#!'
 #DEBUG = False
 DEBUG = True
 
-ALLOWED_HOSTS = ['89.38.144.51','biennale.titansolution.it']
+ALLOWED_HOSTS = ['0.0.0.0']
 
 LANGUAGE_CODE = 'it-it'  # or other appropriate code
 USE_I18N = True
