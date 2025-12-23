@@ -19,6 +19,7 @@ jobs:
           host: ${{ secrets.HOSTINGER_HOST }}
           username: ${{ secrets.HOSTINGER_USERNAME }}
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          port: 22
           source: "."
           target: "/home/${{ secrets.HOSTINGER_USERNAME }}/biennale"
 
@@ -28,7 +29,9 @@ jobs:
           host: ${{ secrets.HOSTINGER_HOST }}
           username: ${{ secrets.HOSTINGER_USERNAME }}
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          port: 22
           script: |
             cd /home/${{ secrets.HOSTINGER_USERNAME }}/biennale
+            # Arresta i container esistenti e avvia i nuovi basati sul docker-compose.yml
             docker compose down
             docker compose up -d --build
