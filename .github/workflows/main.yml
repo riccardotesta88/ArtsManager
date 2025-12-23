@@ -6,15 +6,26 @@ on:
       - master
 
 jobs:
-  deploy:
-    name: Deploy to Biennale Container
+  deploy-and-run:
+    name: Deploy Biennale Service
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository Code
+      - name: Checkout repository code
         uses: actions/checkout@v5
 
-      - name: Deploy to Hostinger VM
+      - name: Sync files to Hostinger VM
         uses: hostinger/deploy-action@v1
         with:
           api-key: ${{ secrets.HOSTINGER_API_KEY }}
           virtual-machine: ${{ vars.HOSTINGER_VM_ID }}
+
+      - name: Execute Docker Compose on Remote Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USERNAME }}
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          script: |
+            cd /app
+            docker compose down
+            docker compose up -d --build
